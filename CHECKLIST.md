@@ -13,15 +13,15 @@
 ## Ngày 0 — Thứ Hai 23/11: Chuẩn bị môi trường & kế hoạch
 
 ### Môi trường
-- [ ] [🤖] Tạo `.wslconfig` (`memory=8GB`, `processors=8`) rồi `wsl --shutdown`
-- [ ] [🤖] Cài Docker Engine trong WSL (không dùng Docker Desktop), kiểm tra `docker run hello-world`
-- [ ] [🤖] Cài toolchain: `clang llvm libbpf-dev linux-tools-common bpftool golang make`
-- [ ] [🤖] Cài công cụ mạng/đo: `iptables nftables iperf3 hping3 netsniff-ng (trafgen) sysstat (mpstat)`
-- [ ] [🤖] Smoke test: tạo cặp veth, nạp XDP `XDP_DROP` tối giản, xác nhận bằng `bpftool prog show` / `ip link`
-- [ ] [🤖] Thử cả 2 chế độ gắn: `xdpgeneric` và `xdpdrv` (native) trên veth
+- [x] [🤖] Tạo `.wslconfig` (`memory=8GB`, `processors=8`) rồi `wsl --shutdown`
+- [x] [🤖] Cài Docker Engine trong WSL (không dùng Docker Desktop), kiểm tra `docker run hello-world`
+- [x] [🤖] Cài toolchain: `clang llvm libbpf-dev linux-tools-common bpftool golang make`
+- [x] [🤖] Cài công cụ mạng/đo: `iptables nftables iperf3 hping3 netsniff-ng (trafgen) sysstat (mpstat)`
+- [x] [🤖] Smoke test: tạo cặp veth, nạp XDP `XDP_DROP` tối giản, xác nhận bằng `bpftool prog show` / `ip link`
+- [x] [🤖] Thử cả 2 chế độ gắn: `xdpgeneric` và `xdpdrv` (native) trên veth
 
 ### Git & Spec Kit
-- [ ] [🤖] Tạo commit đầu tiên, đổi branch về `main`
+- [x] [🤖] Tạo commit đầu tiên, đổi branch về `main`
 - [ ] [👤] Tạo repo remote (GitHub/GitLab) và cho Claude biết URL
 - [ ] [🤝] `/speckit-constitution` — nguyên tắc dự án (bản gọn)
 - [ ] [🤝] `/speckit-specify` — spec tính năng XDP firewall
