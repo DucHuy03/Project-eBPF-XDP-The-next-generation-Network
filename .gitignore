@@ -1,0 +1,21 @@
+# Build artifacts
+*.o
+/bin/
+/build/
+bpf/vmlinux.h
+*_bpfel.go
+*_bpfeb.go
+*_bpfel.o
+*_bpfeb.o
+
+# Local / editor
+.vscode/
+*.swp
+.DS_Store
+.claude/settings.local.json
+
+# Course handout (not redistributed)
+*.pdf
+
+# Benchmark raw scratch (keep results/*.csv and results/*.png)
+results/tmp/
