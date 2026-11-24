@@ -25,7 +25,7 @@
 - [ ] [👤] Tạo repo remote (GitHub/GitLab) và cho Claude biết URL
 - [x] [🤝] `/speckit-constitution` — nguyên tắc dự án (bản gọn)
 - [x] [🤝] `/speckit-specify` — spec tính năng XDP firewall
-- [ ] [🤖] `/speckit-plan` → `/speckit-tasks`
+- [x] [🤖] `/speckit-plan` → `/speckit-tasks`
 
 ### Báo cáo (tự viết — không dùng AI để sinh văn bản)
 - [ ] [👤] Chốt dàn ý báo cáo (xem cuối file)
