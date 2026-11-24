@@ -59,7 +59,7 @@
 ### Kiểm tra cuối ngày
 - [x] [🤖] Chặn được IP attacker, client vẫn truy cập bình thường
 - [x] [🤖] Thêm/xóa rule khi đang chạy không cần nạp lại chương trình
-- [ ] [👤] Tự mở Grafana kiểm tra counter hiển thị đúng
+- [x] [👤] Tự mở Grafana kiểm tra counter hiển thị đúng
 - [ ] [👤] **Đọc và tự giải thích được toàn bộ code XDP + Go** (hỏi Claude chỗ chưa hiểu)
 
 ---
@@ -67,10 +67,10 @@
 ## Ngày 2 — Thứ Tư 25/11: Benchmark
 
 ### Script đo — [🤖]
-- [ ] Script cấu hình iptables tương đương (bảng `raw PREROUTING` và bảng `filter FORWARD`)
-- [ ] Script cấu hình nftables tương đương (dùng set)
-- [ ] Script sinh tải: UDP flood / SYN flood (`trafgen` hoặc `hping3`)
-- [ ] Script thu số liệu: pps drop, % CPU fw-node (`mpstat`), xuất CSV
+- [x] Script cấu hình iptables tương đương (bảng `raw PREROUTING` và bảng `filter FORWARD`)
+- [x] Script cấu hình nftables tương đương (dùng set)
+- [x] Script sinh tải: UDP flood / SYN flood (`trafgen` hoặc `hping3`)
+- [x] Script thu số liệu: pps drop, % CPU fw-node (`mpstat`), xuất CSV
 - [ ] Mỗi phép đo chạy ≥ 3 lần, lấy trung bình + độ lệch
 
 ### Các phép đo — [🤖 chạy, 👤 kiểm tra kết quả]
