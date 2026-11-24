@@ -71,14 +71,14 @@
 - [x] Script cấu hình nftables tương đương (dùng set)
 - [x] Script sinh tải: UDP flood / SYN flood (`trafgen` hoặc `hping3`)
 - [x] Script thu số liệu: pps drop, % CPU fw-node (`mpstat`), xuất CSV
-- [ ] Mỗi phép đo chạy ≥ 3 lần, lấy trung bình + độ lệch
+- [x] Mỗi phép đo chạy ≥ 3 lần, lấy trung bình + độ lệch
 
 ### Các phép đo — [🤖 chạy, 👤 kiểm tra kết quả]
-- [ ] **Đo 1 — Chi phí drop:** XDP native vs XDP generic vs iptables raw vs iptables filter vs nftables set
-- [ ] **Đo 2 — Mở rộng theo số rule:** 10 / 100 / 1.000 / 10.000 rule
-- [ ] **Đo 3 — Ảnh hưởng tới traffic hợp lệ:** latency (ping) + throughput (iperf3) của client khi bị flood
-- [ ] Vẽ biểu đồ (Python matplotlib) từ CSV, lưu vào `results/`
-- [ ] Ghi lại cấu hình máy, kernel, phiên bản công cụ (để báo cáo tái lập được)
+- [x] **Đo 1 — Chi phí drop:** XDP native vs XDP generic vs iptables raw vs iptables filter vs nftables set
+- [x] **Đo 2 — Mở rộng theo số rule:** 10 / 100 / 1.000 / 10.000 rule
+- [x] **Đo 3 — Ảnh hưởng tới traffic hợp lệ:** latency (ping) + throughput (iperf3) của client khi bị flood
+- [x] Vẽ biểu đồ (Python matplotlib) từ CSV, lưu vào `results/`
+- [x] Ghi lại cấu hình máy, kernel, phiên bản công cụ (để báo cáo tái lập được)
 
 ### Báo cáo
 - [ ] [👤] Viết chương 3: Thiết kế & triển khai (kiến trúc hệ thống, map, luồng xử lý gói)

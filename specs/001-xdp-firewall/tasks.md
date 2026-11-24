@@ -121,7 +121,7 @@ description: "Task list for 001-xdp-firewall"
 - [X] T040 [US3] Trong `bench/run_bench.sh` cài đặt Đo 3 `legit_impact`: client chạy `ping -i 0.2` (tính `rtt_avg_ms`, `rtt_p99_ms`) và `iperf3 -t 10` (`legit_mbps`) trong lúc flood cố định (data-model.md §2.1 `rtt_avg_ms`, `rtt_p99_ms`, `legit_mbps`)
 - [X] T041 [P] [US3] Viết `bench/plot.py`: đọc `raw.csv` → `summary.csv` (mean, std, n theo `experiment`/`config`/`rules` — data-model.md §2.3) + 3 biểu đồ PNG: cột nhóm `drop_cost`, đường log-x `rule_scaling`, cột + error bar `legit_impact`
 - [X] T042 [US3] Thêm target `bench` (truyền `QUICK`) và `plot` vào `Makefile`; chạy `make bench QUICK=1` để chọn `offered_pps` cố định (mức baseline chưa bão hòa) và kiểm tra pipeline
-- [ ] T043 [US3] Chạy `make bench` đầy đủ (≥ 3 lần/điểm) và `make plot`; commit `results/<run_id>/{raw.csv,summary.csv,env.txt,*.png}` (SC-006; ghi trung thực nếu SC-007/SC-008 không đạt — constitution V)
+- [X] T043 [US3] Chạy `make bench` đầy đủ (≥ 3 lần/điểm) và `make plot`; commit `results/<run_id>/{raw.csv,summary.csv,env.txt,*.png}` (SC-006; ghi trung thực nếu SC-007/SC-008 không đạt — constitution V)
 - [ ] T044 [US3] Sinh viên đọc hiểu `bench/run_bench.sh`, `bench/configs.sh` và giải thích được vì sao đo pps 1 luồng + CPU toàn hệ thống (research R7) (constitution V)
 
 **Checkpoint**: Có đủ số liệu và biểu đồ cho chương thực nghiệm
