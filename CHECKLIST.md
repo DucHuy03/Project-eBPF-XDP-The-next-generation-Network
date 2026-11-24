@@ -37,28 +37,28 @@
 ## Ngày 1 — Thứ Ba 24/11: Code chính
 
 ### Chương trình XDP (C + libbpf) — [🤖]
-- [ ] Parse Ethernet → IPv4 → TCP/UDP/ICMP (có kiểm tra biên để qua verifier)
-- [ ] Map `LPM_TRIE`: chặn IP/subnet nguồn
-- [ ] Map `HASH`: chặn theo port đích + giao thức
-- [ ] Map `PERCPU_ARRAY`: đếm gói/byte theo action (PASS/DROP) và theo rule
-- [ ] Biên dịch không warning, qua verifier
+- [x] Parse Ethernet → IPv4 → TCP/UDP/ICMP (có kiểm tra biên để qua verifier)
+- [x] Map `LPM_TRIE`: chặn IP/subnet nguồn
+- [x] Map `HASH`: chặn theo port đích + giao thức
+- [x] Map `PERCPU_ARRAY`: đếm gói/byte theo action (PASS/DROP) và theo rule
+- [x] Biên dịch không warning, qua verifier
 
 ### User space (Go + cilium/ebpf) — [🤖]
-- [ ] Loader: gắn/gỡ XDP lên interface, chọn chế độ generic/native
-- [ ] CLI: `block-ip`, `unblock-ip`, `block-port`, `list`, `stats`
-- [ ] Exporter Prometheus `/metrics` (đọc map counter)
+- [x] Loader: gắn/gỡ XDP lên interface, chọn chế độ generic/native
+- [x] CLI: `block-ip`, `unblock-ip`, `block-port`, `list`, `stats`
+- [x] Exporter Prometheus `/metrics` (đọc map counter)
 
 ### Lab — [🤖]
 - [ ] `docker-compose.yml`: `client`, `attacker`, `fw-node`, `server`, `prometheus`, `grafana`
-- [ ] Mạng: client/attacker → fw-node → server (định tuyến qua fw-node)
-- [ ] Ghim CPU (`cpuset`): attacker/client CPU 0–3, fw-node CPU 4–7
-- [ ] Server chạy web (nginx) + `iperf3 -s`
+- [x] Mạng: client/attacker → fw-node → server (định tuyến qua fw-node)
+- [x] Ghim CPU (`cpuset`): attacker/client CPU 0–3, fw-node CPU 4–7
+- [x] Server chạy web (nginx) + `iperf3 -s`
 - [ ] Dashboard Grafana: pps pass/drop, bytes, top rule bị hit (provision sẵn bằng file JSON)
 - [ ] `make up` / `make down` chạy được từ repo sạch
 
 ### Kiểm tra cuối ngày
-- [ ] [🤖] Chặn được IP attacker, client vẫn truy cập bình thường
-- [ ] [🤖] Thêm/xóa rule khi đang chạy không cần nạp lại chương trình
+- [x] [🤖] Chặn được IP attacker, client vẫn truy cập bình thường
+- [x] [🤖] Thêm/xóa rule khi đang chạy không cần nạp lại chương trình
 - [ ] [👤] Tự mở Grafana kiểm tra counter hiển thị đúng
 - [ ] [👤] **Đọc và tự giải thích được toàn bộ code XDP + Go** (hỏi Claude chỗ chưa hiểu)
 
