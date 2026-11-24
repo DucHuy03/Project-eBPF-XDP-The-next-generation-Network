@@ -136,10 +136,10 @@ description: "Task list for 001-xdp-firewall"
 
 ### Implementation for User Story 4
 
-- [ ] T045 [US4] Hoàn thiện `make up`/`make down` trong `Makefile`: `up` = `prereq` + `build` + `docker compose up -d` + chờ healthcheck; `down` = `xdpfw unload` (bỏ qua lỗi) + `docker compose down -v` (FR-015)
-- [ ] T046 [P] [US4] Viết `docs/demo-script.md`: 7 bước theo PROJECT_OVERVIEW.md mục 7 với lệnh copy-paste, kết quả mong đợi, thời lượng mỗi bước (FR-024)
-- [ ] T047 [P] [US4] Viết `README.md`: mục tiêu, kiến trúc (link PROJECT_OVERVIEW.md), yêu cầu, `make up`, demo, test, benchmark, cấu trúc repo, hạn chế (FR-025)
-- [ ] T048 [US4] Kiểm chứng từ repo sạch: `git clone` sang thư mục tạm, `make up`, kiểm tra 6 service chạy và dashboard có dữ liệu ≤ 5 phút, chạy hết demo-script và bấm giờ ≤ 10 phút, `make down` sạch (SC-005, SC-009)
+- [X] T045 [US4] Hoàn thiện `make up`/`make down` trong `Makefile`: `up` = `prereq` + `build` + `docker compose up -d` + chờ healthcheck; `down` = `xdpfw unload` (bỏ qua lỗi) + `docker compose down -v` (FR-015)
+- [X] T046 [P] [US4] Viết `docs/demo-script.md`: 7 bước theo PROJECT_OVERVIEW.md mục 7 với lệnh copy-paste, kết quả mong đợi, thời lượng mỗi bước (FR-024)
+- [X] T047 [P] [US4] Viết `README.md`: mục tiêu, kiến trúc (link PROJECT_OVERVIEW.md), yêu cầu, `make up`, demo, test, benchmark, cấu trúc repo, hạn chế (FR-025)
+- [X] T048 [US4] Kiểm chứng từ repo sạch: `git clone` sang thư mục tạm, `make up`, kiểm tra 6 service chạy và dashboard có dữ liệu ≤ 5 phút, chạy hết demo-script và bấm giờ ≤ 10 phút, `make down` sạch (SC-005, SC-009)
 
 **Checkpoint**: Mọi user story hoàn thành
 

@@ -54,7 +54,7 @@
 - [x] Ghim CPU (`cpuset`): attacker/client CPU 0–3, fw-node CPU 4–7
 - [x] Server chạy web (nginx) + `iperf3 -s`
 - [x] Dashboard Grafana: pps pass/drop, bytes, top rule bị hit (provision sẵn bằng file JSON)
-- [ ] `make up` / `make down` chạy được từ repo sạch
+- [x] `make up` / `make down` chạy được từ repo sạch
 
 ### Kiểm tra cuối ngày
 - [x] [🤖] Chặn được IP attacker, client vẫn truy cập bình thường
@@ -89,7 +89,7 @@
 ## Ngày 3 — Thứ Năm 26/11: Demo, video, slide
 
 ### Demo
-- [ ] [🤖] Viết `docs/demo-script.md` — kịch bản từng bước (≤ 10 phút):
+- [x] [🤖] Viết `docs/demo-script.md` — kịch bản từng bước (≤ 10 phút):
   1. Hệ thống bình thường — client truy cập web
   2. Attacker flood — CPU tăng, client bị ảnh hưởng
   3. Bật XDP / thêm rule bằng CLI — drop tăng trên Grafana, client hồi phục
@@ -109,8 +109,8 @@
 ## Ngày 4 — Thứ Sáu 27/11: Rà soát & nộp
 
 - [ ] [👤] Báo cáo ≤ 20 trang, định dạng chỉn chu, đánh số hình/bảng, trích dẫn đầy đủ
-- [ ] [🤖] README repo: mục tiêu, kiến trúc, cách cài (`make up`), cách chạy demo, cách chạy benchmark
-- [ ] [🤖] Clone repo ra thư mục mới và chạy lại từ đầu — mọi thứ hoạt động
+- [x] [🤖] README repo: mục tiêu, kiến trúc, cách cài (`make up`), cách chạy demo, cách chạy benchmark
+- [x] [🤖] Clone repo ra thư mục mới và chạy lại từ đầu — mọi thứ hoạt động
 - [ ] [👤] Video ≤ 10 phút đã upload, link truy cập được
 - [ ] [👤] Nộp: báo cáo + link Git + link video + slide
 
