@@ -145,7 +145,7 @@ func TestBlockSubnetAndLongestPrefix(t *testing.T) {
 	}
 	subnetID, hostID := ids[0], ids[1]
 
-	run(t, prog, ipv4Packet(pktOpt{src: attacker, dst: server, proto: 17, dport: 1}))      // khớp /32
+	run(t, prog, ipv4Packet(pktOpt{src: attacker, dst: server, proto: 17, dport: 1}))     // khớp /32
 	run(t, prog, ipv4Packet(pktOpt{src: "10.10.1.70", dst: server, proto: 17, dport: 1})) // chỉ khớp /26
 	if got := run(t, prog, ipv4Packet(pktOpt{src: client, dst: server, proto: 17, dport: 1})); got != xdpPass {
 		t.Errorf("client outside subnet: got %d, want PASS", got)
@@ -167,9 +167,9 @@ func TestBlockPortByProtocol(t *testing.T) {
 		t.Fatal(err)
 	}
 	cases := []struct {
-		name  string
-		o     pktOpt
-		want  uint32
+		name string
+		o    pktOpt
+		want uint32
 	}{
 		{"udp/9999", pktOpt{src: client, dst: server, proto: 17, dport: 9999}, xdpDrop},
 		{"tcp/9999", pktOpt{src: client, dst: server, proto: 6, dport: 9999}, xdpPass},
@@ -193,9 +193,9 @@ func TestNonIPv4AndMalformed(t *testing.T) {
 	}
 	arp := append(eth(0x0806), make([]byte, 28)...)
 	ipv6 := append(eth(0x86DD), make([]byte, 40)...)
-	ethOnly := eth(0x0800)                                                    // IPv4 nhưng cụt ngay sau Ethernet
+	ethOnly := eth(0x0800) // IPv4 nhưng cụt ngay sau Ethernet
 	badIHL := ipv4Packet(pktOpt{src: attacker, dst: server, proto: 17, dport: 1})
-	badIHL[14] = 0x44                                                         // ihl = 4 < 5
+	badIHL[14] = 0x44 // ihl = 4 < 5
 	shortTCP := ipv4Packet(pktOpt{src: attacker, dst: server, proto: 6, dport: 1})[:14+20+4]
 
 	for name, pkt := range map[string][]byte{"arp": arp, "ipv6": ipv6} {

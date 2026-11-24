@@ -140,7 +140,9 @@ int xdp_fw(struct xdp_md *ctx)
 	if (iph->ihl < 5 || (void *)iph + ihl_bytes > data_end)
 		return verdict(STAT_PARSE_ERR, len, XDP_PASS);
 
-	/* 3. Rule chặn IP/subnet nguồn: LPM trả về prefix dài nhất khớp. */
+	/* 3. Rule chặn IP/subnet nguồn: LPM trả về prefix dài nhất khớp.
+	 *    Kiểm tra TRƯỚC giao thức và fragment: IP bị chặn thì chặn mọi gói của nó
+	 *    (ICMP, fragment, ...), không chỉ TCP/UDP. */
 	struct lpm_v4_key k4 = { .prefixlen = 32, .addr = iph->saddr };
 	__u32 *rule_id = bpf_map_lookup_elem(&blocked_src, &k4);
 	if (rule_id) {

@@ -40,6 +40,7 @@ type Rule struct {
 // uint16 — NativeEndian.Uint32(ip[:]) cho ra số nguyên mà khi ghi xuống bộ nhớ
 // (theo thứ tự byte của CPU) sẽ đúng là a.b.c.d.
 
+// ipKey / keyPrefix: chuyển giữa netip.Prefix và key LPM của map (addr theo network order).
 func ipKey(p netip.Prefix) bpfobj.XdpFwLpmV4Key {
 	a := p.Addr().As4()
 	return bpfobj.XdpFwLpmV4Key{Prefixlen: uint32(p.Bits()), Addr: binary.NativeEndian.Uint32(a[:])}
@@ -51,6 +52,8 @@ func keyPrefix(k bpfobj.XdpFwLpmV4Key) netip.Prefix {
 	return netip.PrefixFrom(netip.AddrFrom4(a), int(k.Prefixlen))
 }
 
+// portKey / keyPort: chuyển giữa port số học và key map (dport theo network order, pad = 0
+// vì hash map so sánh cả 4 byte của key).
 func portKey(proto uint8, port uint16) bpfobj.XdpFwPortKey {
 	be := [2]byte{byte(port >> 8), byte(port)} // network byte order
 	return bpfobj.XdpFwPortKey{Proto: proto, Pad: 0, Dport: binary.NativeEndian.Uint16(be[:])}
@@ -261,10 +264,11 @@ func usedIDs[K any](m *ebpf.Map) (map[uint32]bool, error) {
 
 // allocator cấp id nhỏ nhất chưa dùng trong [base, max).
 type allocator struct {
-	used      map[uint32]bool
-	cur, max  uint32
+	used     map[uint32]bool
+	cur, max uint32
 }
 
+// newAllocator: used = các id đang có trong map; cấp tuần tự từ base để id nhỏ, dễ đọc.
 func newAllocator(used map[uint32]bool, base, max uint32) *allocator {
 	return &allocator{used: used, cur: base, max: max}
 }
@@ -278,6 +282,9 @@ func (a *allocator) next() (uint32, bool) {
 	return 0, false
 }
 
+// take đánh dấu id vừa cấp để lần next() sau không cấp trùng.
 func (a *allocator) take(id uint32) { a.used[id] = true }
 
+// resetHits xóa bộ đếm của id trước khi gán cho rule mới: id được tái sử dụng sau khi
+// xóa rule, nếu không xóa thì rule mới sẽ "thừa hưởng" số gói của rule cũ.
 func (f *Firewall) resetHits(id uint32) error { return zeroPerCPU(f.Hits, id) }

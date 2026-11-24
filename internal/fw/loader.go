@@ -222,6 +222,8 @@ func ensureBpffs() error {
 	return nil
 }
 
+// writeMeta / readMeta lưu Meta ra MetaDir/meta.json: mỗi lệnh xdpfw là một
+// tiến trình riêng, nên `status` cần nơi lưu iface/mode/thời điểm gắn của lần `load` trước.
 func writeMeta(m *Meta) error {
 	b, err := json.MarshalIndent(m, "", "  ")
 	if err != nil {

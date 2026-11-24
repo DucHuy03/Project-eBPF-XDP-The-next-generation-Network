@@ -120,6 +120,7 @@ func newFlags(name string) *flag.FlagSet {
 	return fs
 }
 
+// parseFlags: lỗi cờ là lỗi người dùng => mã thoát 2 (contracts/cli.md).
 func parseFlags(fs *flag.FlagSet, args []string) error {
 	if err := fs.Parse(args); err != nil {
 		return usageError{err}
