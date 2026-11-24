@@ -86,16 +86,16 @@ benchmark**. Không có cơ sở dữ liệu; rule không lưu bền (spec — A
 | `experiment` | enum | `drop_cost` \| `rule_scaling` \| `legit_impact` |
 | `config` | enum | `baseline`, `xdp-native`, `xdp-generic`, `ipt-legacy-raw`, `ipt-legacy-filter`, `ipt-nft-raw`, `ipt-nft-filter`, `nft-set` |
 | `rules` | int | số rule đã cài (1 cho Đo 1/3; 10/100/1000/10000 cho Đo 2) |
-| `load_mode` | enum | `max` (không giới hạn, 1 luồng) \| `fixed` |
-| `offered_pps` | int | tốc độ tải đặt (0 nếu `max`) |
+| `load_mode` | enum | `max` (không giới hạn, 1 luồng) \| `fixed` \| `none` (Đo 3: không flood — mốc tách chi phí của chính bộ lọc khỏi tác động của flood) |
+| `offered_pps` | int | tốc độ tải đặt (0 nếu `max`/`none`; mặc định 200 000 — baseline chưa bão hòa ở mức này) |
 | `rep` | int | lần lặp 1…N |
-| `sent_pps` | float | pps attacker gửi được (trafgen) |
+| `sent_pps` | float | pps tới interface ngoài của fw-node (`rx_packets`), đọc **cùng một lần exec** với bộ đếm drop để tỉ lệ drop/sent không lệch do trễ `docker exec` |
 | `dropped_pps` | float | pps bị loại bỏ đo tại firewall (bộ đếm XDP hoặc iptables/nft) |
-| `cpu_busy_pct` | float | `%sys + %soft` cộng trên mọi CPU (0–800) |
+| `cpu_busy_pct` | float | `%sys + %irq + %soft` cộng trên mọi CPU (0–800), `mpstat` trên host |
 | `xdp_ns_per_pkt` | float | từ bpf_stats (trống nếu không phải XDP) |
 | `rtt_avg_ms`, `rtt_p99_ms` | float | Đo 3: ping của client |
 | `legit_mbps` | float | Đo 3: iperf3 của client |
-| `duration_s` | int | thời lượng đo |
+| `duration_s` | float | thời lượng đo thực tế giữa hai lần đọc bộ đếm |
 
 ### 2.2 File môi trường `results/<run_id>/env.txt`
 

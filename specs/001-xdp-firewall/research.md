@@ -102,6 +102,14 @@
   `iptable_filter`, `nf_tables` đã modprobe thành công trên WSL (probe); `make up` modprobe trước.
 - **Ghi chú**: `iptables` mặc định của Ubuntu 24.04 là backend nf_tables → phải gọi rõ
   `iptables-legacy` / `iptables-nft`; luôn flush cả hai backend giữa các lần đo.
+- **Bổ sung khi cài đặt (24/11)**: `clear_all` chỉ flush bảng `raw`/`filter` của hai backend và
+  xóa bảng `inet bench`, **không** `nft flush ruleset` — trong netns của fw-node, Docker cài rule
+  DNS nội bộ ở bảng `nat`, xóa đi sẽ làm hỏng DNS của container.
+- **Phát hiện khi đo thử (24/11)**: trên veth, XDP native **không** rẻ hơn rõ rệt so với bảng `raw`
+  — gói tới fw-node đã là `skb` do bên gửi cấp phát, nên lợi thế chính của XDP (drop trước khi cấp
+  phát skb, chỉ có ở driver NIC thật) không xuất hiện. Đồng thời gắn XDP native lên veth làm mất
+  GRO/TSO → throughput TCP hợp lệ giảm mạnh (~27 → ~3,5 Gbit/s) kể cả khi không flood. Cả hai ghi
+  vào phần hạn chế của báo cáo.
 
 ## R10. Kiểm thử
 
