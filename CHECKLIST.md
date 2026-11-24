@@ -23,7 +23,7 @@
 ### Git & Spec Kit
 - [x] [🤖] Tạo commit đầu tiên, đổi branch về `main`
 - [ ] [👤] Tạo repo remote (GitHub/GitLab) và cho Claude biết URL
-- [ ] [🤝] `/speckit-constitution` — nguyên tắc dự án (bản gọn)
+- [x] [🤝] `/speckit-constitution` — nguyên tắc dự án (bản gọn)
 - [ ] [🤝] `/speckit-specify` — spec tính năng XDP firewall
 - [ ] [🤖] `/speckit-plan` → `/speckit-tasks`
 
