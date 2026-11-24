@@ -11,6 +11,7 @@ yêu cầu firewall đã được nạp (map đã pin), nếu không → lỗi m
 | `xdpfw unload` | — | `unloaded from <iface>` |
 | `xdpfw status` | — | interface, mode, prog_id, thời điểm gắn, số rule IP/port |
 | `xdpfw block-ip <CIDR>` | `10.10.1.66` hoặc `10.10.1.0/24` (không có `/` ⇒ `/32`) | `added ip rule id=<n> <cidr>` |
+| `xdpfw block-ip --file <path>` | mỗi dòng một CIDR; bỏ dòng trống và dòng `#` — nạp hàng loạt cho benchmark (quét map một lần, tránh O(n²)) | `added <N> ip rules from <path>` |
 | `xdpfw unblock-ip <CIDR>` | như trên | `removed ip rule id=<n> <cidr>` |
 | `xdpfw block-port <tcp\|udp> <port>` | port 1–65535 | `added port rule id=<n> <proto>/<port>` |
 | `xdpfw unblock-port <tcp\|udp> <port>` | | `removed port rule id=<n> <proto>/<port>` |

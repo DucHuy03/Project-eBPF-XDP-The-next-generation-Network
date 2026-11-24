@@ -62,16 +62,16 @@ description: "Task list for 001-xdp-firewall"
 
 ### Tests for User Story 1
 
-- [ ] T016 [P] [US1] Viết `internal/fw/fw_test.go` (build tag `bpftest`, cần root): dùng `ebpf.Program.Run` (BPF_PROG_TEST_RUN) với gói tự dựng — IPv4 UDP/TCP/ICMP, IPv4 có options (ihl=6), fragment sau, ARP, IPv6, gói cụt sau Ethernet, cụt giữa IP header; nạp rule /32, /24 lồng /32, port udp/9999; kiểm tra action trả về (research R10, spec Edge Cases)
-- [ ] T017 [P] [US1] Viết `tests/functional.sh` phần US1: helper `assert_ok`/`assert_fail`; kịch bản acceptance 1–6 của US1 (không rule → cả hai tới được; block /32; block /24 chứa attacker không chứa client; block udp/9999 nhưng tcp/9999 và udp/khác vẫn qua; unblock khi `ping -i 0.2` liên tục từ client → 0% loss và attacker thông lại ≤ 1 s; `status` đúng mode) (SC-001, SC-002)
+- [X] T016 [P] [US1] Viết `internal/fw/fw_test.go` (build tag `bpftest`, cần root): dùng `ebpf.Program.Run` (BPF_PROG_TEST_RUN) với gói tự dựng — IPv4 UDP/TCP/ICMP, IPv4 có options (ihl=6), fragment sau, ARP, IPv6, gói cụt sau Ethernet, cụt giữa IP header; nạp rule /32, /24 lồng /32, port udp/9999; kiểm tra action trả về (research R10, spec Edge Cases)
+- [X] T017 [P] [US1] Viết `tests/functional.sh` phần US1: helper `assert_ok`/`assert_fail`; kịch bản acceptance 1–6 của US1 (không rule → cả hai tới được; block /32; block /24 chứa attacker không chứa client; block udp/9999 nhưng tcp/9999 và udp/khác vẫn qua; unblock khi `ping -i 0.2` liên tục từ client → 0% loss và attacker thông lại ≤ 1 s; `status` đúng mode) (SC-001, SC-002)
 
 ### Implementation for User Story 1
 
-- [ ] T018 [US1] Viết `internal/fw/rules.go`: `AddIP`/`DelIP` trên `blocked_src` (key theo data-model.md §1.1 `blocked_src.key`, network byte order), `AddPort`/`DelPort` trên `blocked_port` (key theo §1.2 `blocked_port.key`, `pad` = 0), cấp phát `rule_id` nhỏ nhất chưa dùng trong dải tương ứng (data-model.md §1.5), xóa rule ⇒ đặt lại `rule_hits[id]` về 0 (§1.4), lỗi trùng/không tồn tại (mã 4) và đầy (mã 5) (contracts/cli.md)
-- [ ] T019 [US1] Trong `internal/fw/rules.go` thêm `List()` trả rule IP + port (đọc cả `rule_hits` cộng dồn per-CPU) và `Flush()` xóa mọi rule + đặt lại counter
-- [ ] T020 [US1] Mở rộng `cmd/xdpfw/main.go`: lệnh `block-ip`, `unblock-ip`, `block-port`, `unblock-port`, `list` (bảng + `--json`), `flush`; cảnh báo chuẩn hóa CIDR ra stderr với mã 0 (contracts/cli.md)
-- [ ] T021 [US1] Thêm target `test-bpf` vào `Makefile`: chạy `go test -tags bpftest ./internal/...` trong container builder `--privileged`; chạy và sửa tới khi PASS
-- [ ] T022 [US1] Thêm target `test` vào `Makefile` gọi `tests/functional.sh`; chạy trên lab và sửa tới khi mọi kịch bản US1 PASS
+- [X] T018 [US1] Viết `internal/fw/rules.go`: `AddIP`/`DelIP` trên `blocked_src` (key theo data-model.md §1.1 `blocked_src.key`, network byte order), `AddPort`/`DelPort` trên `blocked_port` (key theo §1.2 `blocked_port.key`, `pad` = 0), cấp phát `rule_id` nhỏ nhất chưa dùng trong dải tương ứng (data-model.md §1.5), xóa rule ⇒ đặt lại `rule_hits[id]` về 0 (§1.4), lỗi trùng/không tồn tại (mã 4) và đầy (mã 5) (contracts/cli.md)
+- [X] T019 [US1] Trong `internal/fw/rules.go` thêm `List()` trả rule IP + port (đọc cả `rule_hits` cộng dồn per-CPU) và `Flush()` xóa mọi rule + đặt lại counter
+- [X] T020 [US1] Mở rộng `cmd/xdpfw/main.go`: lệnh `block-ip`, `unblock-ip`, `block-port`, `unblock-port`, `list` (bảng + `--json`), `flush`; cảnh báo chuẩn hóa CIDR ra stderr với mã 0 (contracts/cli.md)
+- [X] T021 [US1] Thêm target `test-bpf` vào `Makefile`: chạy `go test -tags bpftest ./internal/...` trong container builder `--privileged`; chạy và sửa tới khi PASS
+- [X] T022 [US1] Thêm target `test` vào `Makefile` gọi `tests/functional.sh`; chạy trên lab và sửa tới khi mọi kịch bản US1 PASS
 - [ ] T023 [US1] Sinh viên đọc hiểu `bpf/xdp_fw.c`, `internal/fw/loader.go`, `internal/fw/rules.go` và tự giải thích luồng xử lý gói + cách rule đi từ CLI vào map (constitution V — cổng chất lượng 3)
 
 **Checkpoint**: US1 hoạt động độc lập — MVP có thể demo bằng CLI
@@ -86,15 +86,15 @@ description: "Task list for 001-xdp-firewall"
 
 ### Tests for User Story 2
 
-- [ ] T024 [P] [US2] Mở rộng `internal/fw/fw_test.go`: sau N lần `Program.Run`, đọc `stats` (data-model.md §1.3 `stats.key`) và `rule_hits` (§1.4) cộng dồn per-CPU — kiểm tra đúng số gói/byte cho PASS, DROP_IP, DROP_PORT, PARSE_ERR
-- [ ] T025 [P] [US2] Mở rộng `tests/functional.sh` phần US2: chặn attacker, `ping -c 1000 -i 0.002` → `xdpfw stats --json` `drop_ip` tăng đúng 1000 và `pass` không tăng tương ứng; `xdpfw list` có rule với `packets` = 1000; `curl fw-node:9100/metrics` chứa `xdpfw_packets_total{action="drop_ip"}` (SC-003)
+- [X] T024 [P] [US2] Mở rộng `internal/fw/fw_test.go`: sau N lần `Program.Run`, đọc `stats` (data-model.md §1.3 `stats.key`) và `rule_hits` (§1.4) cộng dồn per-CPU — kiểm tra đúng số gói/byte cho PASS, DROP_IP, DROP_PORT, PARSE_ERR
+- [X] T025 [P] [US2] Mở rộng `tests/functional.sh` phần US2: chặn attacker, `ping -c 1000 -i 0.002` → `xdpfw stats --json` `drop_ip` tăng đúng 1000 và `pass` không tăng tương ứng; `xdpfw list` có rule với `packets` = 1000; `curl fw-node:9100/metrics` chứa `xdpfw_packets_total{action="drop_ip"}` (SC-003)
 
 ### Implementation for User Story 2
 
-- [ ] T026 [US2] Viết `internal/fw/stats.go`: `ReadStats()` cộng dồn per-CPU `stats` (data-model.md §1.3 `counter.packets`, `counter.bytes`) cho 4 action
-- [ ] T027 [US2] Mở rộng `cmd/xdpfw/main.go`: lệnh `stats` (bảng + `--json` theo contracts/cli.md)
-- [ ] T028 [US2] Viết `internal/exporter/exporter.go`: `prometheus.Collector` mở map đã pin mỗi lần `Collect`, xuất đúng các metric trong contracts/metrics.md (`xdpfw_up`, `xdpfw_packets_total`, `xdpfw_bytes_total`, `xdpfw_rule_packets_total`, `xdpfw_rule_bytes_total`, `xdpfw_rules`, `xdpfw_info`); khi chưa nạp chỉ xuất `xdpfw_up 0`
-- [ ] T029 [US2] Mở rộng `cmd/xdpfw/main.go`: lệnh `serve --listen` dùng `promhttp.HandlerFor` với registry riêng
+- [X] T026 [US2] Viết `internal/fw/stats.go`: `ReadStats()` cộng dồn per-CPU `stats` (data-model.md §1.3 `counter.packets`, `counter.bytes`) cho 4 action
+- [X] T027 [US2] Mở rộng `cmd/xdpfw/main.go`: lệnh `stats` (bảng + `--json` theo contracts/cli.md)
+- [X] T028 [US2] Viết `internal/exporter/exporter.go`: `prometheus.Collector` mở map đã pin mỗi lần `Collect`, xuất đúng các metric trong contracts/metrics.md (`xdpfw_up`, `xdpfw_packets_total`, `xdpfw_bytes_total`, `xdpfw_rule_packets_total`, `xdpfw_rule_bytes_total`, `xdpfw_rules`, `xdpfw_info`); khi chưa nạp chỉ xuất `xdpfw_up 0`
+- [X] T029 [US2] Mở rộng `cmd/xdpfw/main.go`: lệnh `serve --listen` dùng `promhttp.HandlerFor` với registry riêng
 - [ ] T030 [P] [US2] Viết `lab/prometheus/prometheus.yml`: `scrape_interval: 1s`, job `xdpfw` target `fw-node:9100` qua `net_mgmt` (contracts/metrics.md)
 - [ ] T031 [P] [US2] Viết `lab/grafana/provisioning/datasources/prometheus.yml`, `lab/grafana/provisioning/dashboards/dashboards.yml` và `lab/grafana/dashboards/xdp-firewall.json` với 4 panel trong contracts/metrics.md, refresh 1 s, truy cập ẩn danh chỉ xem
 - [ ] T032 [US2] Thêm service `prometheus` (`prom/prometheus:v2.53.0`) và `grafana` (`grafana/grafana-oss:11.1.0`) vào `lab/docker-compose.yml`, publish `127.0.0.1:9090` và `127.0.0.1:3000`, mount file provisioning (FR-013, research R11)
