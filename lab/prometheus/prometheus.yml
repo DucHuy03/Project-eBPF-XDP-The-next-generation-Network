@@ -1,0 +1,11 @@
+# Prometheus cho lab XDP firewall (contracts/metrics.md).
+# Scrape 1 s để dashboard phản ánh flood trong vài giây (SC-004 ≤ 5 s).
+global:
+  scrape_interval: 1s
+  evaluation_interval: 1s
+
+scrape_configs:
+  - job_name: xdpfw
+    static_configs:
+      # fw-node chạy `xdpfw serve --listen 10.10.9.254:9100` trên net_mgmt
+      - targets: ["10.10.9.254:9100"]

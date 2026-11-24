@@ -49,11 +49,11 @@
 - [x] Exporter Prometheus `/metrics` (đọc map counter)
 
 ### Lab — [🤖]
-- [ ] `docker-compose.yml`: `client`, `attacker`, `fw-node`, `server`, `prometheus`, `grafana`
+- [x] `docker-compose.yml`: `client`, `attacker`, `fw-node`, `server`, `prometheus`, `grafana`
 - [x] Mạng: client/attacker → fw-node → server (định tuyến qua fw-node)
 - [x] Ghim CPU (`cpuset`): attacker/client CPU 0–3, fw-node CPU 4–7
 - [x] Server chạy web (nginx) + `iperf3 -s`
-- [ ] Dashboard Grafana: pps pass/drop, bytes, top rule bị hit (provision sẵn bằng file JSON)
+- [x] Dashboard Grafana: pps pass/drop, bytes, top rule bị hit (provision sẵn bằng file JSON)
 - [ ] `make up` / `make down` chạy được từ repo sạch
 
 ### Kiểm tra cuối ngày

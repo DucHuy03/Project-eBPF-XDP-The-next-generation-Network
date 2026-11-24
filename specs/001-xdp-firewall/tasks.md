@@ -95,10 +95,10 @@ description: "Task list for 001-xdp-firewall"
 - [X] T027 [US2] Mở rộng `cmd/xdpfw/main.go`: lệnh `stats` (bảng + `--json` theo contracts/cli.md)
 - [X] T028 [US2] Viết `internal/exporter/exporter.go`: `prometheus.Collector` mở map đã pin mỗi lần `Collect`, xuất đúng các metric trong contracts/metrics.md (`xdpfw_up`, `xdpfw_packets_total`, `xdpfw_bytes_total`, `xdpfw_rule_packets_total`, `xdpfw_rule_bytes_total`, `xdpfw_rules`, `xdpfw_info`); khi chưa nạp chỉ xuất `xdpfw_up 0`
 - [X] T029 [US2] Mở rộng `cmd/xdpfw/main.go`: lệnh `serve --listen` dùng `promhttp.HandlerFor` với registry riêng
-- [ ] T030 [P] [US2] Viết `lab/prometheus/prometheus.yml`: `scrape_interval: 1s`, job `xdpfw` target `fw-node:9100` qua `net_mgmt` (contracts/metrics.md)
-- [ ] T031 [P] [US2] Viết `lab/grafana/provisioning/datasources/prometheus.yml`, `lab/grafana/provisioning/dashboards/dashboards.yml` và `lab/grafana/dashboards/xdp-firewall.json` với 4 panel trong contracts/metrics.md, refresh 1 s, truy cập ẩn danh chỉ xem
-- [ ] T032 [US2] Thêm service `prometheus` (`prom/prometheus:v2.53.0`) và `grafana` (`grafana/grafana-oss:11.1.0`) vào `lab/docker-compose.yml`, publish `127.0.0.1:9090` và `127.0.0.1:3000`, mount file provisioning (FR-013, research R11)
-- [ ] T033 [US2] Chạy `make test-bpf` + `make test`; mở Grafana kiểm tra đường `drop_ip` phản ánh flood trong ≤ 5 s (SC-004)
+- [X] T030 [P] [US2] Viết `lab/prometheus/prometheus.yml`: `scrape_interval: 1s`, job `xdpfw` target `fw-node:9100` qua `net_mgmt` (contracts/metrics.md)
+- [X] T031 [P] [US2] Viết `lab/grafana/provisioning/datasources/prometheus.yml`, `lab/grafana/provisioning/dashboards/dashboards.yml` và `lab/grafana/dashboards/xdp-firewall.json` với 4 panel trong contracts/metrics.md, refresh 1 s, truy cập ẩn danh chỉ xem
+- [X] T032 [US2] Thêm service `prometheus` (`prom/prometheus:v2.53.0`) và `grafana` (`grafana/grafana-oss:11.1.0`) vào `lab/docker-compose.yml`, publish `127.0.0.1:9090` và `127.0.0.1:3000`, mount file provisioning (FR-013, research R11)
+- [X] T033 [US2] Chạy `make test-bpf` + `make test`; mở Grafana kiểm tra đường `drop_ip` phản ánh flood trong ≤ 5 s (SC-004)
 - [ ] T034 [US2] Sinh viên đọc hiểu `internal/fw/stats.go`, `internal/exporter/exporter.go` và cách Grafana truy vấn `rate()` (constitution V)
 
 **Checkpoint**: US1 + US2 hoạt động — đủ cho phần demo chính
