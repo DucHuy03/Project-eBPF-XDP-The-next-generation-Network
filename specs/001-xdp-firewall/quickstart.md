@@ -6,13 +6,13 @@ metric: [contracts/metrics.md](contracts/metrics.md); dữ liệu: [data-model.m
 ## 0. Yêu cầu
 
 - Linux hoặc WSL2 (kernel ≥ 5.15, có BTF), quyền root/sudo, Docker Engine + Compose plugin, `make`.
-- Trên WSL2: đã cấu hình như Ngày 0 trong `CHECKLIST.md`.
+- Trên WSL2: đã cấu hình như Ngày 0 trong `CHECKLIST.md`. Mọi lệnh chạy trong terminal Ubuntu (WSL), không phải PowerShell.
 
 ## 1. Dựng lab (US4 — SC-005)
 
 ```bash
-make up          # modprobe module cần thiết, build image, docker compose up -d
-docker compose -f lab/docker-compose.yml ps   # kỳ vọng: 6 service "running"
+make up          # modprobe, build image, docker compose up -d, chờ tới khi "lab ready"
+make ps          # kỳ vọng: 6 service "running"
 ```
 
 Mở Grafana `http://localhost:3000` (dashboard "XDP Firewall" có sẵn, đăng nhập ẩn danh chỉ xem).
@@ -21,25 +21,25 @@ Mở Grafana `http://localhost:3000` (dashboard "XDP Firewall" có sẵn, đăng
 
 ```bash
 make shell-fw                                   # vào fw-node
-xdpfw load --iface <if-ext> --mode native       # <if-ext>: interface có IP 10.10.1.254
+xdpfw load --iface $(cat /run/xdp_iface) --mode native   # interface có IP 10.10.1.254
 xdpfw status                                    # kỳ vọng: mode=native
 xdpfw block-ip 10.10.1.66
 xdpfw block-port udp 9999
 xdpfw list
 ```
 
-Kỳ vọng:
-- `docker exec attacker ping -c 3 10.10.2.20` → 100% loss.
-- `docker exec client curl -s 10.10.2.20` → trả về trang web; `ping` → 0% loss.
+Kỳ vọng (chạy ở terminal host, ngoài fw-node):
+- `docker exec xdplab-attacker-1 ping -c 3 -W 1 10.10.2.20` → 100% loss.
+- `docker exec xdplab-client-1 curl -s 10.10.2.20` → trả về trang web; `ping` → 0% loss.
 - `xdpfw unblock-ip 10.10.1.66` → attacker ping được lại trong ≤ 1 s.
 
 ## 3. Quan sát (US2 — SC-003, SC-004)
 
 ```bash
 xdpfw stats                        # ghi nhớ drop_ip
-docker exec attacker ping -c 1000 -i 0.002 -q 10.10.2.20
+docker exec xdplab-attacker-1 ping -c 1000 -i 0.002 -q 10.10.2.20   # (terminal host)
 xdpfw stats                        # drop_ip tăng đúng 1000
-curl -s localhost:9100/metrics | grep xdpfw_packets_total    # từ trong mạng mgmt / qua Prometheus
+curl -s 'http://127.0.0.1:9090/api/v1/query?query=xdpfw_packets_total'   # qua Prometheus (exporter chỉ nghe trên net_mgmt)
 ```
 
 Grafana: đường `drop_ip` tăng trong ≤ 5 s.
@@ -56,8 +56,8 @@ Kỳ vọng: mọi test `PASS`, mã thoát 0.
 ## 5. Benchmark (US3 — SC-006..SC-008)
 
 ```bash
-make bench QUICK=1    # 1 lần/điểm, kiểm tra pipeline (~10 phút)
-make bench            # đầy đủ ≥ 3 lần/điểm (≤ 2 giờ)
+make bench QUICK=1    # 1 lần/điểm, kiểm tra pipeline (~30 phút)
+make bench            # đầy đủ ≥ 3 lần/điểm (~2,5 giờ; vượt mục tiêu 2 giờ của SC-006)
 make plot             # results/<run_id>/summary.csv + *.png
 ```
 

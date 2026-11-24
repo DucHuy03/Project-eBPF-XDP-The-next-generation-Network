@@ -149,7 +149,7 @@ description: "Task list for 001-xdp-firewall"
 
 - [ ] T049 [P] Rà comment trong `bpf/xdp_fw.c` và `internal/**/*.go`: mỗi điểm không hiển nhiên có giải thích "tại sao" (constitution V)
 - [ ] T050 [P] Chạy `go vet ./...` và `gofmt -l .` trong container builder; sửa mọi cảnh báo
-- [ ] T051 Chạy lại toàn bộ quickstart.md (mục 1–7) và cập nhật `CHECKLIST.md` với bằng chứng
+- [X] T051 Chạy lại toàn bộ quickstart.md (mục 1–7) và cập nhật `CHECKLIST.md` với bằng chứng
 - [ ] T052 Đề xuất sửa constitution PATCH cho nguyên tắc I ("CO-RE khi truy cập struct kernel") theo Complexity Tracking của plan.md, chờ sinh viên duyệt
 
 ---
