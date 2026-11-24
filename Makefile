@@ -9,6 +9,7 @@ BUILDER := xdplab/builder:latest
 
 help:
 	@echo "make up | down | ps | shell-fw | test-unit | test-bpf | test | bench [QUICK=1] | plot | clean"
+	@echo "demo: bash lab/demo.sh   (xem docs/demo-script.md)"
 
 ## Nạp các module kernel mà lab và benchmark cần (container không tự modprobe được).
 prereq:
@@ -27,6 +28,7 @@ up: prereq build
 	$(COMPOSE) up -d
 	sysctl -qw net.bridge.bridge-nf-call-iptables=0 net.bridge.bridge-nf-call-ip6tables=0 net.bridge.bridge-nf-call-arptables=0
 	@$(COMPOSE) ps
+	@bash lab/wait-ready.sh
 
 ## Gỡ XDP trước (bỏ qua lỗi nếu chưa nạp) rồi xóa container + mạng.
 down:
