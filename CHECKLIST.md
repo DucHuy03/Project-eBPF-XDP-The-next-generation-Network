@@ -22,7 +22,7 @@
 
 ### Git & Spec Kit
 - [x] [🤖] Tạo commit đầu tiên, đổi branch về `main`
-- [ ] [👤] Tạo repo remote (GitHub/GitLab) và cho Claude biết URL
+- [x] [👤] Tạo repo remote (GitHub/GitLab) và cho Claude biết URL — https://github.com/DucHuy03/Project-eBPF-XDP-The-next-generation-Network
 - [x] [🤝] `/speckit-constitution` — nguyên tắc dự án (bản gọn)
 - [x] [🤝] `/speckit-specify` — spec tính năng XDP firewall
 - [x] [🤖] `/speckit-plan` → `/speckit-tasks`
