@@ -73,7 +73,7 @@ flowchart LR
 
 | Thành phần | Ngôn ngữ / công cụ | Vai trò |
 |---|---|---|
-| `bpf/xdp_fw.c` | C, biên dịch bằng clang → BPF bytecode, libbpf CO-RE | Chương trình data plane chạy tại hook XDP |
+| `bpf/xdp_fw.c` | C, biên dịch bằng clang → BPF bytecode, libbpf, header UAPI (không cần CO-RE vì chỉ đọc header gói) | Chương trình data plane chạy tại hook XDP |
 | `xdpfw` | Go + `cilium/ebpf` (bpf2go) | Nạp/gỡ chương trình, CLI quản lý rule, exporter Prometheus |
 | `lab/` | docker-compose, Dockerfile | Dựng topology lab |
 | `bench/` | Bash + Python (matplotlib) | Cấu hình iptables/nftables, sinh tải, thu & vẽ số liệu |

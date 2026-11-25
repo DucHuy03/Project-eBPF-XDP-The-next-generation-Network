@@ -1,0 +1,14 @@
+/*
+ * Flood UDP cho benchmark (research R8). Khung 60 B + 4 B FCS = 64 B trên dây:
+ *   Ethernet 14 + IPv4 20 + UDP 8 + payload 18.
+ * attacker 10.10.1.66:4321 -> server 10.10.2.20:9999.
+ * @FW_MAC@ = MAC interface ngoài của fw-node, run_bench.sh điền lúc chạy
+ * (gói gửi thẳng tới gateway, không cần ARP trong lúc flood).
+ * Checksum IPv4/UDP do trafgen tự tính.
+ */
+{
+  eth(da=@FW_MAC@, type=0x0800),
+  ipv4(saddr=10.10.1.66, daddr=10.10.2.20, ttl=64),
+  udp(sp=4321, dp=9999),
+  fill(0x00, 18),
+}

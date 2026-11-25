@@ -1,0 +1,99 @@
+# Lab XDP firewall — topology (research.md R5):
+#
+#   client 10.10.1.10 ─┐                                ┌─ server 10.10.2.20
+#                      ├─ net_ext ─ fw-node ─ net_int ──┘
+#   attacker 10.10.1.66┘   (.254)    │     (.254)
+#                                  net_mgmt ─ prometheus, grafana
+#
+# net_ext / net_int là mạng internal: không có đường ra ngoài máy (FR-018).
+name: xdplab
+
+x-node: &node
+  build:
+    context: ..
+    dockerfile: lab/node/Dockerfile
+  image: xdplab/node:latest
+  cap_add: [NET_ADMIN, NET_RAW]
+  init: true
+
+services:
+  fw-node:
+    build:
+      context: ..
+      dockerfile: lab/fw-node/Dockerfile
+    image: xdplab/fw-node:latest
+    hostname: fw-node
+    privileged: true          # cần để nạp chương trình BPF và mount bpffs
+    cpuset: "4-7"             # tách CPU khỏi nhóm sinh tải (FR-017)
+    init: true
+    networks:
+      net_ext:  { ipv4_address: 10.10.1.254 }
+      net_int:  { ipv4_address: 10.10.2.254 }
+      net_mgmt: { ipv4_address: 10.10.9.254 }
+
+  client:
+    <<: *node
+    hostname: client
+    environment: { ROLE: client }
+    cpuset: "0-3"
+    networks:
+      net_ext: { ipv4_address: 10.10.1.10 }
+    depends_on: [fw-node]
+
+  attacker:
+    <<: *node
+    hostname: attacker
+    environment: { ROLE: attacker }
+    cpuset: "0-3"
+    networks:
+      net_ext: { ipv4_address: 10.10.1.66 }
+    depends_on: [fw-node]
+
+  server:
+    <<: *node
+    hostname: server
+    environment: { ROLE: server }
+    networks:
+      net_int: { ipv4_address: 10.10.2.20 }
+    depends_on: [fw-node]
+
+  # ---- Quan sát (US2). Chỉ ở net_mgmt, publish trên 127.0.0.1 (research R11). ----
+  prometheus:
+    image: prom/prometheus:v2.53.0
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=2d
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports: ["127.0.0.1:9090:9090"]
+    networks:
+      net_mgmt: { ipv4_address: 10.10.9.10 }
+    depends_on: [fw-node]
+
+  grafana:
+    image: grafana/grafana-oss:11.1.0
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"        # xem dashboard không cần đăng nhập
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer       # ... nhưng chỉ được xem
+      GF_DASHBOARDS_MIN_REFRESH_INTERVAL: 1s   # mặc định tối thiểu 5 s
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/xdp-firewall.json
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      GF_NEWS_NEWS_FEED_ENABLED: "false"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports: ["127.0.0.1:3000:3000"]
+    networks:
+      net_mgmt: { ipv4_address: 10.10.9.11 }
+    depends_on: [prometheus]
+
+networks:
+  net_ext:
+    internal: true
+    ipam: { config: [ { subnet: 10.10.1.0/24 } ] }
+  net_int:
+    internal: true
+    ipam: { config: [ { subnet: 10.10.2.0/24 } ] }
+  net_mgmt:
+    ipam: { config: [ { subnet: 10.10.9.0/24 } ] }

@@ -24,8 +24,8 @@
 - [x] [🤖] Tạo commit đầu tiên, đổi branch về `main`
 - [ ] [👤] Tạo repo remote (GitHub/GitLab) và cho Claude biết URL
 - [x] [🤝] `/speckit-constitution` — nguyên tắc dự án (bản gọn)
-- [ ] [🤝] `/speckit-specify` — spec tính năng XDP firewall
-- [ ] [🤖] `/speckit-plan` → `/speckit-tasks`
+- [x] [🤝] `/speckit-specify` — spec tính năng XDP firewall
+- [x] [🤖] `/speckit-plan` → `/speckit-tasks`
 
 ### Báo cáo (tự viết — không dùng AI để sinh văn bản)
 - [ ] [👤] Chốt dàn ý báo cáo (xem cuối file)
@@ -37,29 +37,29 @@
 ## Ngày 1 — Thứ Ba 24/11: Code chính
 
 ### Chương trình XDP (C + libbpf) — [🤖]
-- [ ] Parse Ethernet → IPv4 → TCP/UDP/ICMP (có kiểm tra biên để qua verifier)
-- [ ] Map `LPM_TRIE`: chặn IP/subnet nguồn
-- [ ] Map `HASH`: chặn theo port đích + giao thức
-- [ ] Map `PERCPU_ARRAY`: đếm gói/byte theo action (PASS/DROP) và theo rule
-- [ ] Biên dịch không warning, qua verifier
+- [x] Parse Ethernet → IPv4 → TCP/UDP/ICMP (có kiểm tra biên để qua verifier)
+- [x] Map `LPM_TRIE`: chặn IP/subnet nguồn
+- [x] Map `HASH`: chặn theo port đích + giao thức
+- [x] Map `PERCPU_ARRAY`: đếm gói/byte theo action (PASS/DROP) và theo rule
+- [x] Biên dịch không warning, qua verifier
 
 ### User space (Go + cilium/ebpf) — [🤖]
-- [ ] Loader: gắn/gỡ XDP lên interface, chọn chế độ generic/native
-- [ ] CLI: `block-ip`, `unblock-ip`, `block-port`, `list`, `stats`
-- [ ] Exporter Prometheus `/metrics` (đọc map counter)
+- [x] Loader: gắn/gỡ XDP lên interface, chọn chế độ generic/native
+- [x] CLI: `block-ip`, `unblock-ip`, `block-port`, `list`, `stats`
+- [x] Exporter Prometheus `/metrics` (đọc map counter)
 
 ### Lab — [🤖]
-- [ ] `docker-compose.yml`: `client`, `attacker`, `fw-node`, `server`, `prometheus`, `grafana`
-- [ ] Mạng: client/attacker → fw-node → server (định tuyến qua fw-node)
-- [ ] Ghim CPU (`cpuset`): attacker/client CPU 0–3, fw-node CPU 4–7
-- [ ] Server chạy web (nginx) + `iperf3 -s`
-- [ ] Dashboard Grafana: pps pass/drop, bytes, top rule bị hit (provision sẵn bằng file JSON)
-- [ ] `make up` / `make down` chạy được từ repo sạch
+- [x] `docker-compose.yml`: `client`, `attacker`, `fw-node`, `server`, `prometheus`, `grafana`
+- [x] Mạng: client/attacker → fw-node → server (định tuyến qua fw-node)
+- [x] Ghim CPU (`cpuset`): attacker/client CPU 0–3, fw-node CPU 4–7
+- [x] Server chạy web (nginx) + `iperf3 -s`
+- [x] Dashboard Grafana: pps pass/drop, bytes, top rule bị hit (provision sẵn bằng file JSON)
+- [x] `make up` / `make down` chạy được từ repo sạch
 
 ### Kiểm tra cuối ngày
-- [ ] [🤖] Chặn được IP attacker, client vẫn truy cập bình thường
-- [ ] [🤖] Thêm/xóa rule khi đang chạy không cần nạp lại chương trình
-- [ ] [👤] Tự mở Grafana kiểm tra counter hiển thị đúng
+- [x] [🤖] Chặn được IP attacker, client vẫn truy cập bình thường
+- [x] [🤖] Thêm/xóa rule khi đang chạy không cần nạp lại chương trình
+- [x] [👤] Tự mở Grafana kiểm tra counter hiển thị đúng
 - [ ] [👤] **Đọc và tự giải thích được toàn bộ code XDP + Go** (hỏi Claude chỗ chưa hiểu)
 
 ---
@@ -67,18 +67,18 @@
 ## Ngày 2 — Thứ Tư 25/11: Benchmark
 
 ### Script đo — [🤖]
-- [ ] Script cấu hình iptables tương đương (bảng `raw PREROUTING` và bảng `filter FORWARD`)
-- [ ] Script cấu hình nftables tương đương (dùng set)
-- [ ] Script sinh tải: UDP flood / SYN flood (`trafgen` hoặc `hping3`)
-- [ ] Script thu số liệu: pps drop, % CPU fw-node (`mpstat`), xuất CSV
-- [ ] Mỗi phép đo chạy ≥ 3 lần, lấy trung bình + độ lệch
+- [x] Script cấu hình iptables tương đương (bảng `raw PREROUTING` và bảng `filter FORWARD`)
+- [x] Script cấu hình nftables tương đương (dùng set)
+- [x] Script sinh tải: UDP flood / SYN flood (`trafgen` hoặc `hping3`)
+- [x] Script thu số liệu: pps drop, % CPU fw-node (`mpstat`), xuất CSV
+- [x] Mỗi phép đo chạy ≥ 3 lần, lấy trung bình + độ lệch
 
 ### Các phép đo — [🤖 chạy, 👤 kiểm tra kết quả]
-- [ ] **Đo 1 — Chi phí drop:** XDP native vs XDP generic vs iptables raw vs iptables filter vs nftables set
-- [ ] **Đo 2 — Mở rộng theo số rule:** 10 / 100 / 1.000 / 10.000 rule
-- [ ] **Đo 3 — Ảnh hưởng tới traffic hợp lệ:** latency (ping) + throughput (iperf3) của client khi bị flood
-- [ ] Vẽ biểu đồ (Python matplotlib) từ CSV, lưu vào `results/`
-- [ ] Ghi lại cấu hình máy, kernel, phiên bản công cụ (để báo cáo tái lập được)
+- [x] **Đo 1 — Chi phí drop:** XDP native vs XDP generic vs iptables raw vs iptables filter vs nftables set
+- [x] **Đo 2 — Mở rộng theo số rule:** 10 / 100 / 1.000 / 10.000 rule
+- [x] **Đo 3 — Ảnh hưởng tới traffic hợp lệ:** latency (ping) + throughput (iperf3) của client khi bị flood
+- [x] Vẽ biểu đồ (Python matplotlib) từ CSV, lưu vào `results/`
+- [x] Ghi lại cấu hình máy, kernel, phiên bản công cụ (để báo cáo tái lập được)
 
 ### Báo cáo
 - [ ] [👤] Viết chương 3: Thiết kế & triển khai (kiến trúc hệ thống, map, luồng xử lý gói)
@@ -89,7 +89,7 @@
 ## Ngày 3 — Thứ Năm 26/11: Demo, video, slide
 
 ### Demo
-- [ ] [🤖] Viết `docs/demo-script.md` — kịch bản từng bước (≤ 10 phút):
+- [x] [🤖] Viết `docs/demo-script.md` — kịch bản từng bước (≤ 10 phút):
   1. Hệ thống bình thường — client truy cập web
   2. Attacker flood — CPU tăng, client bị ảnh hưởng
   3. Bật XDP / thêm rule bằng CLI — drop tăng trên Grafana, client hồi phục
@@ -109,8 +109,8 @@
 ## Ngày 4 — Thứ Sáu 27/11: Rà soát & nộp
 
 - [ ] [👤] Báo cáo ≤ 20 trang, định dạng chỉn chu, đánh số hình/bảng, trích dẫn đầy đủ
-- [ ] [🤖] README repo: mục tiêu, kiến trúc, cách cài (`make up`), cách chạy demo, cách chạy benchmark
-- [ ] [🤖] Clone repo ra thư mục mới và chạy lại từ đầu — mọi thứ hoạt động
+- [x] [🤖] README repo: mục tiêu, kiến trúc, cách cài (`make up`), cách chạy demo, cách chạy benchmark
+- [x] [🤖] Clone repo ra thư mục mới và chạy lại từ đầu — mọi thứ hoạt động
 - [ ] [👤] Video ≤ 10 phút đã upload, link truy cập được
 - [ ] [👤] Nộp: báo cáo + link Git + link video + slide
 
