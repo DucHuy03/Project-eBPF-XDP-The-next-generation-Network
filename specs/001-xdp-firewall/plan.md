@@ -47,7 +47,7 @@ laptop 4C/8T, WSL 8 GB RAM; máy sinh tải và firewall dùng chung CPU; hạn 
 
 | Nguyên tắc | Đánh giá (trước research) | Sau thiết kế (Phase 1) |
 |---|---|---|
-| **I. Data plane C + libbpf, thân thiện verifier** | ✅ C + libbpf helpers; kiểm tra biên mọi lần đọc; không vòng lặp; gói ngoài phạm vi → `XDP_PASS`; counter per-CPU. ⚠️ Không dùng `vmlinux.h`/CO-RE — xem Complexity Tracking | ✅ data-model §1 dùng PERCPU_ARRAY cho bộ đếm; `PARSE_ERR` → PASS |
+| **I. Data plane C + libbpf, thân thiện verifier** | ✅ C + libbpf helpers; kiểm tra biên mọi lần đọc; không vòng lặp; gói ngoài phạm vi → `XDP_PASS`; counter per-CPU. ✅ Header UAPI, không truy cập struct kernel nên không cần CO-RE (constitution 1.0.1; xem Complexity Tracking) | ✅ data-model §1 dùng PERCPU_ARRAY cho bộ đếm; `PARSE_ERR` → PASS |
 | **II. Control plane Go + cilium/ebpf, một binary** | ✅ `xdpfw` duy nhất: load/unload/rule/stats/serve; rule ghi map, không reload | ✅ contracts/cli.md: mã thoát, stderr |
 | **III. Lab tái lập được** | ✅ `make up`/`make down`; Prometheus/Grafana provision bằng file; image ghim tag | ✅ research R5, R11 |
 | **IV. Benchmark công bằng** | ✅ 8 cấu hình cùng topology/tải; ≥ 3 lần; dọn sạch giữa lần; CSV + `make plot`; `env.txt` | ✅ Bổ sung R6 (tắt `br_netfilter`) và R7 (chỉ số đo phù hợp veth) — làm phép đo **công bằng hơn**, đúng tinh thần nguyên tắc |
@@ -163,4 +163,4 @@ thấy không cô lập hoàn toàn trên veth — được ghi trong báo cáo)
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |-----------|------------|-------------------------------------|
-| Nguyên tắc I ghi "dùng CO-RE (`vmlinux.h`)"; plan dùng **UAPI headers** | Chương trình chỉ đọc header gói theo RFC, không truy cập struct kernel nên CO-RE không mang lại gì; UAPI headers nhỏ, đọc được, build trong container không cần BTF của host | `vmlinux.h` (~3 MB, sinh theo từng kernel) làm build phụ thuộc máy host và khó giải thích hơn — trái nguyên tắc III và VI. Đề xuất sửa constitution (PATCH) thành "CO-RE khi truy cập struct kernel" |
+| Nguyên tắc I ghi "dùng CO-RE (`vmlinux.h`)"; plan dùng **UAPI headers** | Chương trình chỉ đọc header gói theo RFC, không truy cập struct kernel nên CO-RE không mang lại gì; UAPI headers nhỏ, đọc được, build trong container không cần BTF của host | `vmlinux.h` (~3 MB, sinh theo từng kernel) làm build phụ thuộc máy host và khó giải thích hơn — trái nguyên tắc III và VI. Đề xuất sửa constitution (PATCH) thành "CO-RE khi truy cập struct kernel" — **đã duyệt, constitution 1.0.1 (2026-11-25)** |

@@ -1,11 +1,21 @@
+<!--
+Sync Impact Report
+- Version: 1.0.0 -> 1.0.1 (PATCH: chỉnh câu chữ, không đổi tinh thần nguyên tắc)
+- Nguyên tắc sửa: I. "Data Plane trong kernel" — CO-RE/vmlinux.h chỉ bắt buộc khi truy cập
+  struct nội bộ của kernel; chương trình chỉ đọc header gói dùng header UAPI.
+- Lý do: specs/001-xdp-firewall/plan.md (Complexity Tracking), research.md R1.
+- Người duyệt: sinh viên, 2026-11-25.
+- Template cần cập nhật: không.
+-->
 # XDP Firewall Project Constitution
 
 ## Core Principles
 
-### I. Data Plane trong kernel: C + libbpf CO-RE, thân thiện verifier
+### I. Data Plane trong kernel: C + libbpf, thân thiện verifier
 
-- Chương trình XDP PHẢI viết bằng C, biên dịch bằng clang (`-target bpf`), dùng libbpf
-  và CO-RE (`vmlinux.h` sinh từ BTF của kernel).
+- Chương trình XDP PHẢI viết bằng C, biên dịch bằng clang (`-target bpf`), dùng libbpf.
+- Khi truy cập struct nội bộ của kernel PHẢI dùng CO-RE (`vmlinux.h` sinh từ BTF của kernel);
+  chương trình chỉ đọc header gói (định dạng theo RFC) dùng header UAPI (`linux/*.h`).
 - Mọi truy cập vào dữ liệu gói PHẢI kiểm tra biên với `data_end` trước khi đọc.
 - KHÔNG dùng vòng lặp không giới hạn; mọi vòng lặp (nếu có) PHẢI có cận trên cố định.
 - Gói không thuộc phạm vi xử lý (không phải IPv4, ARP, IPv6, gói hỏng) PHẢI trả về
@@ -107,4 +117,4 @@ không tái lập được sẽ làm mất giá trị toàn bộ báo cáo.
   kiểm tra lại nguyên tắc IV và V trước khi nộp bài.
 - Hướng dẫn thực thi chi tiết nằm trong `PROJECT_OVERVIEW.md` và `CHECKLIST.md`.
 
-**Version**: 1.0.0 | **Ratified**: 2026-11-23 | **Last Amended**: 2026-11-23
+**Version**: 1.0.1 | **Ratified**: 2026-11-23 | **Last Amended**: 2026-11-25
