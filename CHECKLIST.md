@@ -111,6 +111,8 @@
 - [ ] [👤] Báo cáo ≤ 20 trang, định dạng chỉn chu, đánh số hình/bảng, trích dẫn đầy đủ
 - [x] [🤖] README repo: mục tiêu, kiến trúc, cách cài (`make up`), cách chạy demo, cách chạy benchmark
 - [x] [🤖] Clone repo ra thư mục mới và chạy lại từ đầu — mọi thứ hoạt động
+- [x] [🤖] `docs/ARCHITECTURE.md`: sơ đồ 12 khối, request/response, chi tiết khối, luồng đọc code; dòng `KHỐI Bx` ở đầu mỗi file code
+- [ ] [👤] Đọc `docs/ARCHITECTURE.md` mục 5 theo thứ tự, tự trả lời câu hỏi mục 5.3 (hỗ trợ T023/T034/T044)
 - [ ] [👤] Video ≤ 10 phút đã upload, link truy cập được
 - [ ] [👤] Nộp: báo cáo + link Git + link video + slide
 

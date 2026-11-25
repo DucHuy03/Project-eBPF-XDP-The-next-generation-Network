@@ -4,6 +4,9 @@
 // Thiết kế: không có goroutine nền, không cache. Mỗi lần Prometheus scrape,
 // Collect mở các map đã pin, đọc giá trị hiện tại rồi đóng lại. Nhờ vậy exporter
 // vẫn đúng khi firewall bị unload/load lại trong lúc `xdpfw serve` đang chạy.
+//
+// KHỐI B7 (exporter) — docs/ARCHITECTURE.md §4. Request: Prometheus (B8) gửi
+// GET /metrics mỗi 1 s. Response: văn bản metric, lấy từ B4 (ReadStats, List).
 package exporter
 
 import (

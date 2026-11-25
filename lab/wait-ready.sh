@@ -2,6 +2,8 @@
 # Chờ lab sẵn sàng sau `docker compose up -d` (gọi từ `make up`, FR-015 / SC-005).
 # Sẵn sàng = client tải được web của server qua fw-node, Prometheus scrape được exporter
 # của fw-node, và Grafana trả lời /api/health. Hết TIMEOUT giây thì báo lỗi.
+# KHỐI B9 (lab) — docs/ARCHITECTURE.md §4. Kiểm cả 3 đường: client→fw-node→server,
+# Prometheus→B7, trình duyệt→Grafana.
 set -uo pipefail
 
 TIMEOUT=${TIMEOUT:-180}

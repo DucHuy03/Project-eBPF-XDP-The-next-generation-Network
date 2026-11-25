@@ -6,6 +6,7 @@ Firewall chạy trong kernel ở hook XDP, chặn theo IP/subnet nguồn và the
 theo action và theo rule, đổi rule lúc đang chạy. Kèm lab docker-compose có dashboard Grafana và bộ
 benchmark so sánh với iptables (legacy/nft, bảng raw/filter) và nftables set.
 
+- **Sơ đồ khối, giao tiếp giữa các khối, luồng đọc code: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**
 - Thiết kế tổng thể, luồng xử lý gói, phương pháp đo: [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md)
 - Đặc tả, kế hoạch, quyết định kỹ thuật: [specs/001-xdp-firewall/](specs/001-xdp-firewall/)
   (`spec.md`, `plan.md`, `research.md`, `data-model.md`, `contracts/`)

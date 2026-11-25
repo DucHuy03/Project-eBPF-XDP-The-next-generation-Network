@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 # Ghi lại môi trường đo vào results/<run_id>/env.txt (data-model.md §2.2, nguyên tắc III/IV).
 # Được `source` bởi run_bench.sh. Dùng: write_env <file> "<tham số tải>"
+# KHỐI B10 (benchmark) — docs/ARCHITECTURE.md §4.
 
 write_env() { # $1 file, $2 params string
 	local f=$1 params=$2 img

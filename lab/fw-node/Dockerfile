@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1
 # fw-node: router + firewall. Stage 1 build xdpfw (C -> BPF bytecode -> nhúng vào Go),
 # stage 2 chỉ chứa binary + công cụ mạng cần cho demo/benchmark.
+# KHỐI B3 (build, stage builder) + B9 (image chạy) — docs/ARCHITECTURE.md §4.
 
 FROM golang:1.23.4-bookworm AS builder
 RUN apt-get update && apt-get install -y --no-install-recommends clang llvm libbpf-dev \

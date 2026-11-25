@@ -1,5 +1,8 @@
 # XDP firewall lab — chạy trong Linux/WSL2 với quyền root (hoặc sudo).
 # Xem specs/001-xdp-firewall/quickstart.md
+#
+# KHỐI B9 (lab orchestration) — docs/ARCHITECTURE.md §4. Điểm vào của mọi thao tác:
+# up/down dựng-dỡ lab (B9), test-* chạy B12, bench/plot chạy B10.
 
 COMPOSE := docker compose -f lab/docker-compose.yml
 FW      := docker exec xdplab-fw-node-1

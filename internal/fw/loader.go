@@ -4,6 +4,13 @@
 // Mỗi lệnh CLI là một tiến trình ngắn. Để firewall vẫn chạy sau khi tiến trình
 // thoát, `Load` "pin" (ghim) link XDP và các map vào bpffs tại PinDir. Các lệnh
 // sau mở lại map từ đó. `Unload` gỡ link và xóa thư mục pin.
+//
+// KHỐI B4 (control plane) — docs/ARCHITECTURE.md §4. Gồm 3 file:
+//   - loader.go: vòng đời chương trình (nạp, gắn, pin, gỡ, mở lại map)
+//   - rules.go:  thêm/xóa/liệt kê rule trong blocked_src, blocked_port
+//   - stats.go:  đọc/xóa bộ đếm per-CPU trong stats, rule_hits
+//
+// Gọi bởi B6 (CLI) và B7 (exporter); nói chuyện với B2 (map) qua syscall bpf().
 package fw
 
 import (

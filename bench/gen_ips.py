@@ -2,6 +2,7 @@
 """Sinh N địa chỉ IPv4 ngẫu nhiên, không trùng, để làm rule "không khớp" cho Đo 2.
 
 Seed cố định => mọi lần chạy (và mọi cấu hình) nhận cùng một danh sách rule (research R9).
+KHỐI B10 (benchmark) — docs/ARCHITECTURE.md §4.
 Loại trừ 10.10.0.0/16 (lab) và các dải đặc biệt để rule không bao giờ khớp traffic của lab.
 
     python3 bench/gen_ips.py 999 > rules.txt
