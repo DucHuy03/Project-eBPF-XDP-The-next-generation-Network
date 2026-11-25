@@ -2,6 +2,11 @@
 /*
  * xdp_fw.c — XDP firewall: chặn IP/subnet nguồn và port đích (TCP/UDP), đếm gói.
  *
+ * KHỐI B1 (data plane) + B2 (BPF maps) — docs/ARCHITECTURE.md §4.
+ *   B1: hàm xdp_fw() chạy trong kernel cho TỪNG gói, chỉ tra bảng rồi trả DROP/PASS.
+ *   B2: 4 map khai báo bên dưới là nơi DUY NHẤT trao đổi dữ liệu với user space
+ *       (internal/fw ghi rule vào, đọc bộ đếm ra). B1 không gọi user space và ngược lại.
+ *
  * Luồng xử lý một gói:
  *   Ethernet -> (không phải IPv4? PASS) -> IPv4 header (hỏng? PARSE_ERR + PASS)
  *   -> tra blocked_src (LPM)  : khớp => DROP_IP

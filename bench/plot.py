@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Tổng hợp raw.csv -> summary.csv và vẽ biểu đồ (data-model.md §2.3, FR-023).
 
+KHỐI B10 (benchmark), bước cuối — docs/ARCHITECTURE.md §4.
+
     python3 bench/plot.py                 # đợt đo mới nhất trong results/
     python3 bench/plot.py results/<run_id>
 

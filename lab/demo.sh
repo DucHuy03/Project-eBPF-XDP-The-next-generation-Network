@@ -10,6 +10,7 @@
 #
 # <config>: baseline xdp-native xdp-generic ipt-legacy-raw ipt-legacy-filter ipt-nft-raw ipt-nft-filter nft-set
 # Chạy từ thư mục gốc repo, với root trong WSL/Linux, khi lab đang chạy (make up).
+# KHỐI B11 (demo) — docs/ARCHITECTURE.md §4. Dùng chung configs.sh với B10.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 # shellcheck source=../bench/configs.sh

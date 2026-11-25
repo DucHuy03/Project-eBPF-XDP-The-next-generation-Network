@@ -2,6 +2,7 @@
 # Functional test trên lab đang chạy (`make up` trước). Kiểm tra acceptance
 # scenarios của US1 (chặn) và US2 (bộ đếm) trong spec.md.
 # Chạy: make test        (cần root trong WSL/Linux, cần jq)
+# KHỐI B12 (kiểm thử, tầng hệ thống) — docs/ARCHITECTURE.md §4. Kiểm B1–B6 trên lab thật.
 set -uo pipefail
 
 FW=xdplab-fw-node-1

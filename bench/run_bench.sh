@@ -11,6 +11,8 @@
 #   * load_mode=max   : trafgen 1 luồng không giới hạn => sent_pps cao hơn = lọc rẻ hơn
 #   * load_mode=fixed : trafgen RATE pps => cpu_busy_pct (%sys+%irq+%soft cộng mọi CPU, 0–800)
 #   * XDP thêm xdp_ns_per_pkt từ bpf_stats (chi phí thuần của chương trình)
+#
+# KHỐI B10 (benchmark) — docs/ARCHITECTURE.md §4. Đọc theo thứ tự: measure() -> plan() -> vòng lặp cuối.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 

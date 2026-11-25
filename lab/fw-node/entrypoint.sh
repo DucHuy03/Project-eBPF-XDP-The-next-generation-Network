@@ -1,5 +1,7 @@
 #!/bin/sh
 # fw-node: router giữa net_ext (10.10.1.0/24) và net_int (10.10.2.0/24) + firewall XDP.
+# KHỐI B9 (lab) — docs/ARCHITECTURE.md §4. Chuẩn bị môi trường cho B4 (bpffs, iface) và
+# khởi động B7 (exporter) làm tiến trình chính của container.
 set -eu
 
 # bpffs cần cho việc pin map/link (xdpfw cũng tự mount nếu thiếu).

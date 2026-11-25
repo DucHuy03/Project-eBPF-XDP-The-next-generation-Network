@@ -5,6 +5,7 @@
  * @FW_MAC@ = MAC interface ngoài của fw-node, run_bench.sh điền lúc chạy
  * (gói gửi thẳng tới gateway, không cần ARP trong lúc flood).
  * Checksum IPv4/UDP do trafgen tự tính.
+ * KHỐI B10 (benchmark) — docs/ARCHITECTURE.md §4. Đây là gói đi vào B1 ở luồng A.
  */
 {
   eth(da=@FW_MAC@, type=0x0800),

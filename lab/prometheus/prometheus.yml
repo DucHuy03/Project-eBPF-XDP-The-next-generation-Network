@@ -1,5 +1,6 @@
 # Prometheus cho lab XDP firewall (contracts/metrics.md).
 # Scrape 1 s để dashboard phản ánh flood trong vài giây (SC-004 ≤ 5 s).
+# KHỐI B8 (quan sát) — docs/ARCHITECTURE.md §4. Request: GET /metrics tới B7 trên net_mgmt.
 global:
   scrape_interval: 1s
   evaluation_interval: 1s

@@ -6,6 +6,9 @@
 #                                  net_mgmt ─ prometheus, grafana
 #
 # net_ext / net_int là mạng internal: không có đường ra ngoài máy (FR-018).
+#
+# KHỐI B9 (lab orchestration) — docs/ARCHITECTURE.md §4. Định nghĩa 6 container, 3 mạng,
+# IP cố định, cpuset. fw-node chứa B1–B7; prometheus + grafana là B8.
 name: xdplab
 
 x-node: &node

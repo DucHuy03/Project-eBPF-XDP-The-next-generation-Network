@@ -6,6 +6,10 @@
 //	xdpfw block-port <tcp|udp> <port> | unblock-port <tcp|udp> <port>
 //	xdpfw list [--json] | stats [--json] | flush
 //	xdpfw serve [--listen :9100]
+//
+// KHỐI B6 (CLI) — docs/ARCHITECTURE.md §4. Mỗi lệnh: kiểm tra đầu vào (B5) -> mở map
+// đã pin và gọi control plane (B4) -> in kết quả -> mã thoát (exitCode). `serve` chạy
+// exporter (B7). Bắt đầu đọc từ bảng `commands` trong init().
 package main
 
 import (

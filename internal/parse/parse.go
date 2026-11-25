@@ -1,5 +1,8 @@
 // Package parse kiểm tra và chuẩn hóa tham số người dùng nhập (CIDR, giao thức, port)
 // trước khi ghi vào BPF map. Không phụ thuộc kernel nên test được bằng `go test` thường.
+//
+// KHỐI B5 (parse đầu vào) — docs/ARCHITECTURE.md §4. Được B6 (CLI) gọi; trả giá trị đã
+// chuẩn hóa để B4 dựng key map, hoặc lỗi để CLI thoát với mã 2.
 package parse
 
 import (

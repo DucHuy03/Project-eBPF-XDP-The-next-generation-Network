@@ -1,5 +1,6 @@
 #!/bin/sh
 # Node trong lab. ROLE=client|attacker|server.
+# KHỐI B9 (lab) — docs/ARCHITECTURE.md §4. Đặt route qua fw-node; server chạy nginx + iperf3.
 # Mạng ext/int là mạng "internal" (không ra Internet), nên mỗi node chỉ cần một
 # route tới mạng bên kia qua fw-node (.254).
 set -eu

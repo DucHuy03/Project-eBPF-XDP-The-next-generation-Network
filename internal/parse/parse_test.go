@@ -1,5 +1,7 @@
 package parse
 
+// KHỐI B12 (kiểm thử, tầng unit) — docs/ARCHITECTURE.md §4. Kiểm B5 không cần kernel.
+
 import "testing"
 
 func TestParseCIDR(t *testing.T) {

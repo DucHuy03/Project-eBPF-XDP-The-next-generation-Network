@@ -1,5 +1,9 @@
 package fw
 
+// KHỐI B4 (control plane) / stats.go — docs/ARCHITECTURE.md §4 B4.
+// Nhiệm vụ: đọc bộ đếm do B1 ghi (map per-CPU => phải tự cộng mọi CPU) cho `xdpfw stats`,
+// `xdpfw list` và exporter B7; đặt bộ đếm về 0 khi xóa rule/flush.
+
 import (
 	"github.com/cilium/ebpf"
 

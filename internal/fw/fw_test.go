@@ -3,6 +3,8 @@
 // Test chương trình XDP thật trong kernel bằng BPF_PROG_TEST_RUN: dựng gói bằng tay,
 // đưa vào chương trình, kiểm tra action trả về và bộ đếm. Không cần lab hay interface.
 // Cần root (CAP_BPF/CAP_SYS_ADMIN): chạy bằng `make test-bpf`.
+//
+// KHỐI B12 (kiểm thử, tầng chương trình BPF) — docs/ARCHITECTURE.md §4. Kiểm B1 + B2 + B4.
 package fw
 
 import (

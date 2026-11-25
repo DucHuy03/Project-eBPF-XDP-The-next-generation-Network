@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 # Bật/tắt 8 cấu hình lọc trên fw-node cho benchmark (research R9, data-model.md §2.1 `config`).
 # File này được `source` bởi run_bench.sh; mọi lệnh chạy trong container fw-node qua docker exec.
+# KHỐI B10 (benchmark) — docs/ARCHITECTURE.md §4. Thư viện dùng chung cho B10 và B11 (demo).
 #
 #   clear_all                     gỡ mọi chương trình/rule lọc (FR-022)
 #   apply <config> <rules_file>   cài rule; rules_file: mỗi dòng 1 IP, IP attacker ở DÒNG CUỐI

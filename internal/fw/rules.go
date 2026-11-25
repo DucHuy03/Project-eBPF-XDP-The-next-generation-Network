@@ -1,5 +1,9 @@
 package fw
 
+// KHỐI B4 (control plane) / rules.go — docs/ARCHITECTURE.md §4 B4.
+// Nhiệm vụ: ghi/xóa rule vào map blocked_src (LPM) và blocked_port (hash), cấp rule_id,
+// liệt kê rule kèm số gói đã khớp. Đây là nơi lệnh CLI biến thành byte trong map kernel.
+
 import (
 	"encoding/binary"
 	"errors"
