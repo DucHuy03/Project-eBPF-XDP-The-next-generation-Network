@@ -19,3 +19,6 @@ bpf/vmlinux.h
 
 # Benchmark raw scratch (keep results/*.csv and results/*.png)
 results/tmp/
+
+# Python
+__pycache__/
